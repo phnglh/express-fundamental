@@ -1,6 +1,6 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import expressWinston from "express-winston";
-import logger from "src/utils/logger";
+import logger from "./utils/logger";
 const app: Application = express();
 const PORT = 3056;
 
@@ -11,7 +11,7 @@ app.use(
     msg: "HTTP {{req.method}} {{req.url}}",
     expressFormat: true,
     colorize: false,
-  }),
+  })
 );
 
 app.use("/", (req: Request, res: Response, next: NextFunction) => {
@@ -23,3 +23,5 @@ app.use("/", (req: Request, res: Response, next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export default app;

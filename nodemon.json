@@ -1,6 +1,6 @@
 {
-  "exec": "node --inspect=0.0.0.0:9229 -r ts-node/register -r tsconfig-paths/register ./src/server.ts",
-  "ext": "ts,json,yml",
-  "ignore": ["dist", "node_modules"],
-  "watch": ["src"]
+  "watch": ["src", ".env", "swagger"],
+  "ext": "js,ts,json,yaml",
+  "ignore": ["src/logs/*", "src/**/*.{spec,test}.ts"],
+  "exec": "ts-node -r tsconfig-paths/register --transpile-only src/server.ts"
 }
