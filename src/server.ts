@@ -1,27 +1,29 @@
-import express, { Application, NextFunction, Request, Response } from "express";
-import expressWinston from "express-winston";
-import logger from "./utils/logger";
-const app: Application = express();
-const PORT = 3056;
+import app from "./app";
 
-app.use(
-  expressWinston.logger({
-    winstonInstance: logger,
-    meta: true,
-    msg: "HTTP {{req.method}} {{req.url}}",
-    expressFormat: true,
-    colorize: false,
-  })
-);
+const PORT = process.env.PORT || 3000;
 
-app.use("/", (req: Request, res: Response, next: NextFunction) => {
-  res.json({
-    msg: "Hello world",
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+// Handle graceful shutdown
+const shutdown = () => {
+  console.log("Shutting down server...");
+  server.close(() => {
+    console.log("Server closed");
+    process.exit(0);
   });
+};
+
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  shutdown();
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+process.on("unhandledRejection", (reason: any) => {
+  console.error("Unhandled Rejection:", reason);
+  shutdown();
 });
-
-export default app;
