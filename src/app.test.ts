@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "./server";
-import { expect, test, describe, it } from "vitest";
+import app from "./app";
+import { expect, describe, it } from "vitest";
 describe("GET /", () => {
   it("should return status 200", async () => {
     const res = await request(app).get("/");

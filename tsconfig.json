@@ -35,6 +35,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env", "prisma-json-types.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "prisma-json-types.d.ts", "commitlint.config.ts", "lint-staged.config.mjs"],
   "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
 }
